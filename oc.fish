@@ -10,5 +10,5 @@ function tusken-opencode --description "Run an isolated instance of OpenCode wit
         -e XDG_DATA_HOME="$workspace/.opencode/share" \
         -e XDG_STATE_HOME="$workspace/.opencode/state" \
         -w "$workspace" \
-        ghcr.io/anomalyco/opencode:latest
+        localhost/tusken-sandbox:latest
 end
