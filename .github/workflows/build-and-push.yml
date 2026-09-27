@@ -1,0 +1,32 @@
+name: Build and Push Container
+
+on:
+  workflow_dispatch:
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+  TAG: ${{ github.ref_name }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Log in to GHCR
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" |
+            podman login ghcr.io \
+              --username "${{ github.actor }}" \
+              --password-stdin
+
+      - name: Build image
+        run: podman build --tag "${IMAGE}:${TAG}" .
+
+      - name: Push image
+        run: podman push "${IMAGE}:${TAG}"
