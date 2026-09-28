@@ -24,12 +24,12 @@ Only Opencode is configured at the moment. I just invoke `oc` as a `fish` abbrev
 
 As-is there are a number of issues that I must address:
 
-1. The official OpenCode image is Alpine. Some of the relevant deviations are:
-- the use of `musl` rather than `gcc`
-- the use of `apk`
-- the absence of `bash`, `git`, `python`, and other common tools like `jq`
+~~1. The official OpenCode image is Alpine. Some of the relevant deviations are:~~
+~~- the use of `musl` rather than `gcc`~~
+~~- the use of `apk`~~
+~~- the absence of `bash`, `git`, `python`, and other common tools like `jq`~~
 
-This causes excessive churn in every session when tool-heavy workflows are used for the first time. This image is intended for use in Opencode's build process rather than regular interactive use.
+~~This causes excessive churn in every session when tool-heavy workflows are used for the first time. This image is intended for use in Opencode's build process rather than regular interactive use.~~
 
 2. My use of XDG directory mapping ensures that all project-related "state" is self-contained and preserved but this also confuses the agent as it doesn't know where to find anything despite its self-awareness that they must exist and that it's using them. This will frequently trigger costly ruminations as it attempts to reconcile its pre-trained worldview with reality.
 

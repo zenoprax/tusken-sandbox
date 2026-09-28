@@ -4,7 +4,9 @@ function tusken-opencode --description "Run an isolated instance of OpenCode wit
     set -l host_config "$HOME/.config/opencode/opencode.jsonc"
     set -l workspace /workspace
     podman run -it --rm \
+        --pull newer \
         --name "sandbox-$project_name" \
+        --hostname "sandbox-$project_name" \
         -v "$host_config:/root/.config/opencode/opencode.jsonc:ro" \
         -v "$project_dir:$workspace" \
         -e XDG_DATA_HOME="$workspace/.opencode/share" \
