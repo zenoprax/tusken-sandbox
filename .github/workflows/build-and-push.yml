@@ -2,6 +2,11 @@ name: Build and Push Container
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - Containerfile
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}
@@ -26,7 +31,7 @@ jobs:
               --password-stdin
 
       - name: Build image
-        run: podman build --tag "${IMAGE}:${TAG}" .
+        run: podman build --tag "${IMAGE}:main" .
 
       - name: Push image
-        run: podman push "${IMAGE}:${TAG}"
+        run: podman push "${IMAGE}:main"

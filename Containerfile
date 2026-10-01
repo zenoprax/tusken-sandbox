@@ -15,8 +15,15 @@ RUN dnf -y install \
     && dnf clean all \
     && rm -rf /var/cache/dnf
 
-RUN curl -fsSL https://opencode.ai/install | bash
+# Release tag of anomalyco/opencode, bumped by Renovate (see renovate.jsonc).
+# Deliberately pinned one release behind so the bot has a bump to propose.
+ARG OPENCODE_VERSION=v1.18.0
 
-ENV PATH="/root/.opencode/bin:$PATH"
+RUN curl -fsSL -o /tmp/opencode.tar.gz \
+        "https://github.com/anomalyco/opencode/releases/download/${OPENCODE_VERSION}/opencode-linux-x64.tar.gz" \
+    && tar -xzf /tmp/opencode.tar.gz -C /usr/local/bin opencode \
+    && chmod 755 /usr/local/bin/opencode \
+    && rm -f /tmp/opencode.tar.gz \
+    && opencode --version
 
 CMD ["opencode", "--auto"]

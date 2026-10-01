@@ -1,0 +1,47 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "dependencyDashboard": false,
+  "recreateClosed": true,
+  "automergeType": "pr",
+  "semanticCommits": "enabled",
+  "enabledManagers": [
+    "custom.regex",
+    "github-actions",
+    "dockerfile"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)Containerfile$/"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "anomalyco/opencode",
+      "packageNameTemplate": "anomalyco/opencode",
+      "versioningTemplate": "loose",
+      "matchStrings": [
+        "ARG OPENCODE_VERSION=(?<currentValue>\\S+)"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "anomalyco/opencode"
+      ],
+      "automerge": true,
+      "allowedVersions": "/^v?1\\.18\\./"
+    },
+    {
+      "matchPackageNames": [
+        "quay.io/fedora/fedora-minimal"
+      ],
+      // Block rawhide through pinning
+      "automerge": false,
+      "allowedVersions": "/^4[45](\\.|$)/"
+    }
+  ]
+}
