@@ -6,6 +6,8 @@
   "dependencyDashboard": false,
   "recreateClosed": true,
   "automergeType": "pr",
+  // Merge via our own API call rather than GitHub's "Allow auto-merge" feature
+  "platformAutomerge": false,
   "semanticCommits": "enabled",
   "enabledManagers": [
     "custom.regex",
