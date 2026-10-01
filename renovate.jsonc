@@ -5,9 +5,9 @@
   ],
   "dependencyDashboard": false,
   "recreateClosed": true,
-  "automergeType": "pr",
-  // Merge via our own API call rather than GitHub's "Allow auto-merge" feature
-  "platformAutomerge": false,
+  "automergeType": "branch",
+  "ignoreTests": true,
+  "pruneBranchAfterAutomerge": true,
   "semanticCommits": "enabled",
   "enabledManagers": [
     "custom.regex",
@@ -41,8 +41,8 @@
       "matchPackageNames": [
         "quay.io/fedora/fedora-minimal"
       ],
-      // Block rawhide through pinning
       "automerge": false,
+      "automergeType": "pr",
       "allowedVersions": "/^4[45](\\.|$)/"
     }
   ]
