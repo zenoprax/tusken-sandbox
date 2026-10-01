@@ -5,6 +5,7 @@
   ],
   "dependencyDashboard": false,
   "recreateClosed": true,
+  "automerge": true,
   "automergeType": "pr",
   "semanticCommits": "enabled",
   "enabledManagers": [
@@ -32,7 +33,6 @@
       "matchPackageNames": [
         "anomalyco/opencode"
       ],
-      "automerge": true,
       "allowedVersions": "/^v?1\\.18\\./"
     },
     {
