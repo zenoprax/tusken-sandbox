@@ -4,7 +4,8 @@
     "config:recommended"
   ],
   "dependencyDashboard": false,
-  "recreateClosed": true,
+  "recreateWhen": "always",
+  "automerge": true,
   "automergeType": "branch",
   "ignoreTests": true,
   "pruneBranchAfterAutomerge": true,
@@ -34,8 +35,6 @@
       "matchPackageNames": [
         "anomalyco/opencode"
       ],
-      "automerge": true,
-      "allowedVersions": "/^v?1\\.18\\./"
       "matchUpdateTypes": [
         "patch"
       ]
@@ -46,7 +45,7 @@
       ],
       "automerge": false,
       "automergeType": "pr",
-      "allowedVersions": "/^4[45](\\.|$)/"
+      "allowedVersions": "/^45(\\.|$)/"
     }
   ]
 }
