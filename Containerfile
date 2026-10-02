@@ -1,4 +1,4 @@
-FROM quay.io/fedora/fedora-minimal:45
+FROM quay.io/fedora/fedora-minimal:46
 
 RUN dnf -y install \
     git \
