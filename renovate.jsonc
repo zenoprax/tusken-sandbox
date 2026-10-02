@@ -44,8 +44,7 @@
         "quay.io/fedora/fedora-minimal"
       ],
       "automerge": false,
-      "automergeType": "pr",
-      "allowedVersions": "/^45(\\.|$)/"
+      "automergeType": "pr"
     }
   ]
 }
