@@ -32,19 +32,14 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": [
-        "anomalyco/opencode"
-      ],
-      "matchUpdateTypes": [
-        "patch"
-      ]
+      "matchPackageNames": ["anomalyco/opencode"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
     },
     {
-      "matchPackageNames": [
-        "quay.io/fedora/fedora-minimal"
-      ],
-      "automerge": false,
-      "automergeType": "pr"
+      "matchPackageNames": ["anomalyco/opencode"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
     }
   ]
 }

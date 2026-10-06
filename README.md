@@ -22,17 +22,11 @@ As in *Tusken raiders* [^tusken]. Tatooine is a big sandbox and they are free to
 
 Only Opencode is configured at the moment. I just invoke `oc` as a `fish` abbreviation and whatever directory I'm in becomes `/workspace` with no writable access to anything else on the host system.
 
-As-is there are a number of issues that I must address:
+`$HOME` is set to `.opencode/home` within the project directory.
 
-~~1. The official OpenCode image is Alpine. Some of the relevant deviations are:~~
-~~- the use of `musl` rather than `gcc`~~
-~~- the use of `apk`~~
-~~- the absence of `bash`, `git`, `python`, and other common tools like `jq`~~
+Set your API key with `podman secret`. For example, with OpenRouter:
+`printf '%s' "$YOUR_API_KEY_HERE" | podman secret create openrouter_api_key -`
 
-~~This causes excessive churn in every session when tool-heavy workflows are used for the first time. This image is intended for use in Opencode's build process rather than regular interactive use.~~
-
-2. My use of XDG directory mapping ensures that all project-related "state" is self-contained and preserved but this also confuses the agent as it doesn't know where to find anything despite its self-awareness that they must exist and that it's using them. This will frequently trigger costly ruminations as it attempts to reconcile its pre-trained worldview with reality.
-
-3. Mapping `opencode.jsonc` as read-only is useful for ensuring a local model can be run without extra configuration but it is not safe to expose API keys directly here. I assume that there is a better way of handling this so that an agent can't read them directly. Probably just an environment variable somewhere.
+The `fish` function example shows how it is used for `podman run`.
 
 [^tusken]: Image sourced from [starwars.fandom.com](https://starwars.fandom.com/wiki/Tusken_Raider).

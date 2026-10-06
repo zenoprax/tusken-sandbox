@@ -1,0 +1,28 @@
+# Package List for OpenCode on Debian Trixies (slim)
+# These comments are stripped out by `sed 's/#.*//' /tmp/packages.txt`
+
+# Basic bootstrapping/fallback tools (web scraping, tarballs, etc.)
+curl
+wget
+xz-utils
+zstd
+bzip2
+
+# Free access to `apt` will require `sudo`
+sudo
+
+# OpenCode only has two real dependencies
+git
+ripgrep
+
+# OpenCode often tries these first before creating its own solution
+gnu-which
+file
+jq
+python3
+python3-pip
+pipx
+npm
+
+# Others
+nano
