@@ -22,13 +22,7 @@ RUN curl -fsSL -o /tmp/opencode.tar.gz \
 RUN useradd --create-home --uid 1000 --shell /bin/bash opencode \
     && install -d -o opencode -g opencode /workspace
 
-RUN printf '%s\n' \
-    'opencode ALL=(root) NOPASSWD: /usr/bin/apt, /usr/bin/apt-get' \
-    > /etc/sudoers.d/opencode \
-    && chmod 0440 /etc/sudoers.d/opencode
-
 USER opencode
-RUN sudo apt-get update
 RUN opencode debug config \
     && opencode debug paths \
     && opencode debug info \

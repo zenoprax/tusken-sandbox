@@ -8,9 +8,6 @@ xz-utils
 zstd
 bzip2
 
-# Free access to `apt` will require `sudo`
-sudo
-
 # OpenCode only has two real dependencies
 git
 ripgrep
