@@ -30,8 +30,7 @@ RUN useradd --create-home --uid 1000 --shell /bin/bash opencode \
 USER opencode
 RUN opencode debug config \
     && opencode debug paths \
-    && opencode debug info \
-    && opencode debug startup
+    && opencode debug --help
 
 WORKDIR /workspace
 CMD ["opencode", "--auto"]
