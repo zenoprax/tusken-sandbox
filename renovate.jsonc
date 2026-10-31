@@ -6,7 +6,6 @@
   "dependencyDashboard": false,
   "recreateWhen": "always",
   "automergeType": "branch",
-  "ignoreTests": true,
   "pruneBranchAfterAutomerge": true,
   "semanticCommits": "enabled",
   "enabledManagers": [
@@ -21,7 +20,7 @@
         "/(^|/)Containerfile$/"
       ],
       "datasourceTemplate": "github-releases",
-      "depNameTemplate": "anomalyco/opencode",
+      "depNameTemplate": "OpenCode",
       "packageNameTemplate": "anomalyco/opencode",
       "versioningTemplate": "semver",
       "matchStrings": [
@@ -31,18 +30,41 @@
   ],
   "packageRules": [
     {
+      "matchManagers": ["github-actions"],
+      "semanticCommitType": "ci",
+      "semanticCommitScope": "actions",
+      "commitMessageTopic": "GitHub Action {{{depName}}}"
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "semanticCommitType": "build",
+      "semanticCommitScope": "container",
+      "commitMessageAction": "Refresh",
+      "commitMessageTopic": "base image",
+      "commitMessageLowerCase": "never"
+    },
+    {
+      "matchManagers": ["custom.regex"],
       "matchPackageNames": ["anomalyco/opencode"],
-      "matchUpdateTypes": ["major"],
-      "enabled": false
+      "semanticCommitType": "build",
+      "semanticCommitScope": "container",
+      "commitMessageTopic": "{{{depName}}}",
+      "commitMessageLowerCase": "never"
     },
     {
       "matchPackageNames": ["anomalyco/opencode"],
-      "matchUpdateTypes": ["minor"],
+      "matchUpdateTypes": ["minor", "major"],
+      "commitMessageAction": "Upgrade",
+      "draftPR": false,
+      "addLabels": ["manual-review"],
+      "changelogUrl": "https://opencode.ai/changelog",
+      "fetchChangeLogs": "pr",
       "automerge": false
     },
     {
       "matchPackageNames": ["anomalyco/opencode"],
       "matchUpdateTypes": ["patch"],
+      "commitMessageAction": "Patch",
       "automerge": true
     }
   ]
