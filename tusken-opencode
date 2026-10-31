@@ -29,8 +29,6 @@ podman run -it --rm --pull newer \
     --tmpfs /tmp:rw,size=512m \
     --pids-limit 512 \
     --memory 4g \
-    -e OPENCODE_TUI_CONFIG=/etc/opencode/tui.json \
-    -e OPENCODE_DISABLE_AUTOUPDATE=true \
     -e OPENCODE_ENABLE_TELEMETRY=true \
     -e "TZ=$HOST_TZ" \
     --secret openrouter_api_key,type=env,target=OPENROUTER_API_KEY \
