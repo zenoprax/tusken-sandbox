@@ -8,6 +8,9 @@ xz-utils
 zstd
 bzip2
 
+# Timezone data so the host's TZ resolves inside the container
+tzdata
+
 # OpenCode only has two real dependencies
 git
 ripgrep

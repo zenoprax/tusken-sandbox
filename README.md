@@ -1,18 +1,17 @@
 **`tusken-sandbox`** is agentic isolation using Podman to turn `$PWD` into a safer space.
 
-Coding agents are non-deterministic general-purpose programs and therefore cannot be trusted. My approach is a slim image driven by a "just enough permission" `podman run` command. 
+Coding agents are stochastic general-purpose programs and therefore cannot be trusted.
+My approach is a minimal Debian image with just enough configuration and permissions to run an agent harness.
+Only Opencode is configured at the moment.
 
-Only Opencode is configured at the moment. I just invoke `oc` as a `fish` abbreviation and whatever directory I'm in becomes `/workspace` with no writable access to anything else on the host system.
+I just invoke `oc` as a shell alias for the included bash wrapper and whatever directory I'm in becomes `/workspace` with no writable access to anything else on the host system.
 
 `$HOME` is set to `.opencode/home` within the project directory.
 
 Set your API key with `podman secret`. For example, with OpenRouter:
 `printf '%s' "$YOUR_API_KEY_HERE" | podman secret create openrouter_api_key -`
 
-The `fish` function example shows how it is used for `podman run`.
-
 ---
-
 
 ## **tusken**?
 

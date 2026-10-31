@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+WORKSPACE=/workspace
+PROJ_DIR=$(pwd)
+PROJ_NAME=$(basename "$PROJ_DIR")
+PROJ_HASH=$(printf '%s' "$PROJ_DIR" | sha256sum | cut -c1-6)
+POD_NAME="sandbox-$PROJ_NAME-$PROJ_HASH"
+
+HOST_TZ=${TZ:-}
+if [[ -z $HOST_TZ && -e /etc/localtime ]]; then
+    TARGET=$(readlink -f /etc/localtime || true)
+    case $TARGET in
+        */zoneinfo/*) HOST_TZ=${TARGET#*/zoneinfo/} ;;
+    esac
+fi
+if [[ -z $HOST_TZ && -r /etc/timezone ]]; then
+    HOST_TZ=$(head -n 1 /etc/timezone)
+fi
+HOST_TZ=${HOST_TZ:-UTC}
+
+podman run -it --rm --pull newer \
+    --userns=keep-id \
+    --name "$POD_NAME" \
+    --hostname "$POD_NAME" \
+    --security-opt no-new-privileges \
+    --cap-drop=ALL \
+    --read-only \
+    --tmpfs /tmp:rw,size=512m \
+    --pids-limit 512 \
+    --memory 4g \
+    -e OPENCODE_TUI_CONFIG=/etc/opencode/tui.json \
+    -e OPENCODE_DISABLE_AUTOUPDATE=true \
+    -e OPENCODE_ENABLE_TELEMETRY=true \
+    -e "TZ=$HOST_TZ" \
+    -v /etc/localtime:/etc/localtime:ro \
+    --secret openrouter_api_key,type=env,target=OPENROUTER_API_KEY \
+    --secret opencode_api_key,type=env,target=OPENCODE_API_KEY \
+    -v "${XDG_CONFIG_HOME:-$HOME/.config}/opencode:/etc/opencode:ro" \
+    -e "HOME=$WORKSPACE/$PROJ_NAME/.opencode/home" \
+    -v "$PROJ_DIR:$WORKSPACE/$PROJ_NAME" \
+    -w "$WORKSPACE/$PROJ_NAME" \
+    ghcr.io/zenoprax/tusken-sandbox:main \
+    sh -c 'opencode --auto --continue'

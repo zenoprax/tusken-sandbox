@@ -9,6 +9,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
     && apt autopurge \
     && rm -rf /var/lib/apt/lists/* /tmp/packages.txt
 
+# Git Config
+RUN git config --system core.excludesFile /etc/gitignore \
+    && printf '%s\n' '.opencode/' > /etc/gitignore \
+    && printf '%s\n' '.local/' >> /etc/gitignore
+
 # OpenCode Config
 ENV OPENCODE_DISABLE_AUTOUPDATE=true
 ARG OPENCODE_VERSION=v1.18.35
