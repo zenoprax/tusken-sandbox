@@ -5,7 +5,6 @@
   ],
   "dependencyDashboard": false,
   "recreateWhen": "always",
-  "automerge": true,
   "automergeType": "branch",
   "ignoreTests": true,
   "pruneBranchAfterAutomerge": true,
@@ -33,8 +32,13 @@
   "packageRules": [
     {
       "matchPackageNames": ["anomalyco/opencode"],
-      "matchUpdateTypes": ["major", "minor"],
+      "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["anomalyco/opencode"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": false
     },
     {
       "matchPackageNames": ["anomalyco/opencode"],
