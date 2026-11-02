@@ -8,13 +8,13 @@ on:
       - "renovate/**"
     paths:
       - Containerfile
-      - ".github/workflows/**"
+      - packages.txt
   pull_request:
     branches:
         - main
     paths:
       - Containerfile
-      - ".github/workflows/**"
+      - packages.txt
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}
@@ -33,17 +33,34 @@ jobs:
 
       - name: Log in to GHCR
         if: >-
-          github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' ||
-          github.event_name == 'workflow_dispatch')
+          github.event_name == 'push' ||
+          github.event_name == 'workflow_dispatch'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" |
             podman login ghcr.io \
               --username "${{ github.actor }}" \
               --password-stdin
 
+      - name: Build image (PR)
+        if: github.event_name == 'pull_request'
+        run: >-
+          podman build
+          --layers
+          --cache-from "${IMAGE}"
+          --tag "${IMAGE}:main"
+          .
+          
       - name: Build image
-        run: podman build --tag "${IMAGE}:main" .
+        if: >-
+          github.event_name == 'push' ||
+          github.event_name == 'workflow_dispatch'
+        run: >-
+          podman build
+          --layers
+          --cache-from "${IMAGE}"
+          --cache-to "${IMAGE}"
+          --tag "${IMAGE}:main"
+          .
 
       - name: Push image
         if: >-

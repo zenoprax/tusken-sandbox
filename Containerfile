@@ -14,18 +14,17 @@ RUN git config --system core.excludesFile /etc/gitignore \
     && printf '%s\n' '.opencode/' > /etc/gitignore \
     && printf '%s\n' '.local/' >> /etc/gitignore
 
+# User Config
+RUN useradd --create-home --uid 1000 --shell /bin/bash opencode \
+    && install -d -o opencode -g opencode /workspace
+
 # OpenCode Config
-ENV OPENCODE_DISABLE_AUTOUPDATE=true
 ARG OPENCODE_VERSION=v2.2.5
 RUN curl -fsSL -o /tmp/opencode.tar.gz \
         "https://github.com/anomalyco/opencode/releases/download/${OPENCODE_VERSION}/opencode-linux-x64.tar.gz" \
     && tar -xzf /tmp/opencode.tar.gz -C /usr/local/bin opencode \
     && chmod 755 /usr/local/bin/opencode \
     && rm -f /tmp/opencode.tar.gz
-
-# User Config
-RUN useradd --create-home --uid 1000 --shell /bin/bash opencode \
-    && install -d -o opencode -g opencode /workspace
 
 USER opencode
 RUN opencode debug config \
