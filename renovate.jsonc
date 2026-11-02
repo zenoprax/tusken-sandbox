@@ -33,7 +33,18 @@
       "matchManagers": ["github-actions"],
       "semanticCommitType": "ci",
       "semanticCommitScope": "actions",
-      "commitMessageTopic": "GitHub Action {{{depName}}}"
+      "commitMessageAction": "bump",
+      "commitMessageTopic": "{{{depName}}}"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false
     },
     {
       "matchManagers": ["dockerfile"],
