@@ -52,7 +52,9 @@
       "semanticCommitScope": "container",
       "commitMessageAction": "Refresh",
       "commitMessageTopic": "base image",
-      "commitMessageLowerCase": "never"
+      "commitMessageLowerCase": "never",
+      "matchUpdateTypes": ["digest"],
+      "automerge": true
     },
     {
       "matchManagers": ["custom.regex"],
