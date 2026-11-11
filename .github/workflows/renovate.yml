@@ -4,16 +4,25 @@ on:
   schedule:
     - cron: "11,22,33,44,55 */6 * * *"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Build and Push Container"]
+    types: [completed]
 
 concurrency:
   group: renovate
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write
 
 jobs:
   renovate:
+    # Retain this conditional trigger if auto-merging anything by branch
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       startsWith(github.event.workflow_run.head_branch, 'renovate/'))
     runs-on: ubuntu-latest
 
     steps:
