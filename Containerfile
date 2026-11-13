@@ -19,7 +19,7 @@ RUN useradd --create-home --uid 1000 --shell /bin/bash opencode \
     && install -d -o opencode -g opencode /workspace
 
 # OpenCode Config
-ARG OPENCODE_VERSION=v2.2.7
+ARG OPENCODE_VERSION=v2.3.0
 RUN curl -fsSL -o /tmp/opencode.tar.gz \
         "https://github.com/anomalyco/opencode/releases/download/${OPENCODE_VERSION}/opencode-linux-x64.tar.gz" \
     && tar -xzf /tmp/opencode.tar.gz -C /usr/local/bin opencode \
