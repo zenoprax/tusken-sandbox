@@ -18,7 +18,7 @@ on:
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}
-  TAG: ${{ github.ref_name }}
+  TAG: main
 
 jobs:
   build-and-push:
@@ -46,7 +46,7 @@ jobs:
         run: >-
           podman build
           --layers
-          --cache-from "${IMAGE}"
+          --cache-from "${IMAGE}-cached"
           --tag "${IMAGE}:main"
           .
           
@@ -57,8 +57,8 @@ jobs:
         run: >-
           podman build
           --layers
-          --cache-from "${IMAGE}"
-          --cache-to "${IMAGE}"
+          --cache-from "${IMAGE}-cached"
+          --cache-to "${IMAGE}-cached"
           --tag "${IMAGE}:main"
           .
 
